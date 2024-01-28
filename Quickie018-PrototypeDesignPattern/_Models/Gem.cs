@@ -6,14 +6,24 @@ public class Gem : IPrototype
     private readonly Texture2D _texture;
     private Vector2 _position;
     private Vector2 _direction;
+    public Vector2 Position => _position;
     public Rectangle Rectangle => new((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height);
     public GemProperties GemProperties { get; }
 
     public Gem(Texture2D texture, Vector2 position, GemProperties properties)
     {
+        //Thread.Sleep(5000);
         _texture = texture;
         GemProperties = properties;
         _position = position;
+        RandomizeDirection();
+    }
+
+    private Gem(Gem gem)
+    {
+        _texture = gem._texture;
+        GemProperties = new(gem.GemProperties.Color);
+        _position = gem._position;
         RandomizeDirection();
     }
 
@@ -32,6 +42,12 @@ public class Gem : IPrototype
     {
         return new Gem(_texture, _position, new(GemProperties.Color));
     }
+
+    public IPrototype DeepCloneSkipConstructor()
+    {
+        return new Gem(this);
+    }
+
 
     public void Update()
     {
