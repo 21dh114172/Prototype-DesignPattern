@@ -37,15 +37,15 @@ public class GameManager
         {
             if (gem.Rectangle.Intersects(InputManager.MouseRectangle))
             {
-                //var clone = type > 0 ?
-                //    (Gem)gem.DeepCloneSkipConstructor() :
-                //    (Gem)gem.ShallowClone();
-                //clone.RandomizeDirection();
-                var clone = new Gem(
-                    Globals.Content.Load<Texture2D>("gem"),
-                    gem.Position,
-                    new(gem.GemProperties.Color)
-                );
+                var clone = type > 0 ?
+                   (Gem)gem.DeepCloneSkipConstructor() :
+                   (Gem)gem.ShallowClone();
+                clone.RandomizeDirection();
+                // var clone = new Gem(
+                //     Globals.Content.Load<Texture2D>("gem"),
+                //     gem.Position,
+                //     new(gem.GemProperties.Color)
+                // );
                 if (type > 0) clone.GemProperties.Color = Color.DarkRed;
 
                 _gems.Add(clone);
